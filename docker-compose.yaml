@@ -9,6 +9,8 @@ services:
         volumes:
             - ./:/mnt/locust
         command: -f /mnt/locust/test.py
+        extra_hosts:
+            - "localhost:10.211.55.4"
 
 
     locust-metrics-exporter:
@@ -26,7 +28,7 @@ services:
         ports:
             - "9090:9090"
         command:
-            - --config.file=/etc/prometheus/prometheus.yml
+            - --config.file=/prometheus.yml
         volumes:
             - ./prometheus.yml:/prometheus.yml:ro
 
@@ -41,6 +43,6 @@ services:
         depends_on:
             - prometheus
 networks:
-  default:
-    external: true
-    name: quay-perf-test
+    default:
+        external: true
+        name: quay-net

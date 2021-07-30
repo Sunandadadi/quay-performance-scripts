@@ -84,8 +84,7 @@ import time
 class APIUser(HttpUser):
 
     def on_start(self):
-        # print("Logging in")
-        self.client.post('http://localhost:8080/', {'username': 'admin', 'password': 'password'})
+        self.client.get('http://localhost:8080/search/')
         time.sleep(1)
 
     @tag('blah test')
@@ -95,17 +94,15 @@ class APIUser(HttpUser):
         time.sleep(1)
         # print("Completed executing my_task!")
 
-
     @tag('repository')
     @task
     def login(self):
-        # print("Calling Repository")
         self.client.get('http://localhost:8080/repository/')
         time.sleep(1)
 
 
     @tag('podman_tag_image')
-    @task
+    # @task
     def podman_tag_image(self):
         username = "admin"
         password = "password"
